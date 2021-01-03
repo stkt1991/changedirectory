@@ -24,24 +24,33 @@ fs.readdir('.', function (err, files) {
 });
 
 // enumerate the files in the folder including the subfolder
-var dirTarget = COPY_DIST; // Target Directory
-var text = ''; // The information which want to write
-
+// Target Directory
+var dirTarget = COPY_DIST; 
+// The information which want to write
+var text = ''; 
 // Definition of getFiles function
 (function getFiles(dir){
-    var files = fs.readdirSync(dir); // get the file and subdirectory in specific directory
+    var files = fs.readdirSync(dir); 
+    // get the file and subdirectory in specific directory
     files.forEach(function(file){ 
-        var fullPath = path.join(dir, file); // get the full path
-        var stats = fs.statSync(fullPath) // get the information from directory or file
-        if(stats.isDirectory()){ // If it is directory
-            getFiles(fullPath); // recursively call getFiles function
-        }else{ // If it is file
+        // get the full path
+        var fullPath = path.join(dir, file); 
+        // get the information from directory or file
+        var stats = fs.statSync(fullPath) 
+        // If it is directory
+        if(stats.isDirectory()){ 
+            // recursively call getFiles function
+            getFiles(fullPath); 
+            // If it is file
+        }else{ 
             // get the file information
             console.log(fullPath)
-            text += file // filename
-                + ',' + stats.size // filesize:byte
+            // filename
+            text += file 
+                // filesize:byte
+                + ',' + stats.size 
                 + '\n'; 
-            // If the file size is less than 1byte, then delete
+        // If the file size is less than 1byte, then delete
         if(stats.size<1.0){
     fs.unlinkSync(fullPath);}
 　　　　 }   
